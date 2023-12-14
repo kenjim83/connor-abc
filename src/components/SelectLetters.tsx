@@ -1,10 +1,21 @@
 import { Box, Button } from "@mui/material";
 
-import { lettersAtom, ALL_LETTERS } from "../atoms/letters";
+import { lettersAtomLocalStorage, ALL_LETTERS, isDrawerOpenAtom } from "../atoms/letters";
 import { useAtom } from "jotai";
+import useKeyPress from "../hooks/useKeyPress";
+import { useEffect } from "react";
 
 function SelectLetters() {
-  const [selectedLetters, setSelectedLetters] = useAtom(lettersAtom);
+  const [selectedLetters, setSelectedLetters] = useAtom(lettersAtomLocalStorage);
+  const isDownPressed = useKeyPress('ArrowDown');
+  const [_, setIsDrawerOpen] = useAtom(isDrawerOpenAtom);
+
+  useEffect(() => {
+    if (isDownPressed) {
+      setIsDrawerOpen(false);
+      return;
+    }
+  }, [isDownPressed]);
 
   return (
     <Box sx={{

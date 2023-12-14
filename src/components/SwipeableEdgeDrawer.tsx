@@ -5,10 +5,9 @@ import { grey } from '@mui/material/colors';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import { useState } from 'react';
 import SelectLetters from './SelectLetters';
 import { useAtom } from 'jotai';
-import { lettersAtom } from '../atoms/letters';
+import { isDrawerOpenAtom, lettersAtomLocalStorage } from '../atoms/letters';
 
 const drawerBleeding = 56;
 
@@ -34,12 +33,8 @@ const Puller = styled(Box)(({ theme }) => ({
 
 export default function SwipeableEdgeDrawer(props: Props) {
   const { window } = props;
-  const [open, setOpen] = useState(false);
-  const [selectedLetters] = useAtom(lettersAtom);
-
-  const toggleDrawer = (newOpen: boolean) => () => {
-    setOpen(newOpen);
-  };
+  const [selectedLetters] = useAtom(lettersAtomLocalStorage);
+  const [isDrawerOpen, setIsDrawerOpen] = useAtom(isDrawerOpenAtom);
 
   // This is used only for the example
   const container = window !== undefined ? () => window().document.body : undefined;
@@ -55,12 +50,13 @@ export default function SwipeableEdgeDrawer(props: Props) {
           },
         }}
       />
+
       <SwipeableDrawer
         container={container}
         anchor="bottom"
-        open={open}
-        onClose={toggleDrawer(false)}
-        onOpen={toggleDrawer(true)}
+        open={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        onOpen={() => setIsDrawerOpen(true)}
         swipeAreaWidth={drawerBleeding}
         disableSwipeToOpen={false}
         ModalProps={{

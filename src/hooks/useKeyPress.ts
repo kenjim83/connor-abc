@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 
-const useKeyPress = (targetKey) => {
+const useKeyPress = (targetKey: string) => {
   // State to track whether the key is currently pressed
   const [isKeyPressed, setIsKeyPressed] = useState(false);
 
   // Event handler to set the state when the key is pressed or released
-  const handleKeyDown = ({ key }) => {
+  const handleKeyDown = ({ key }: { key: string}) => {
     if (key === targetKey) {
       setIsKeyPressed(true);
     }
   };
 
-  const handleKeyUp = ({ key }) => {
+  const handleKeyUp = ({ key }: { key: string}) => {
     if (key === targetKey) {
       setIsKeyPressed(false);
     }

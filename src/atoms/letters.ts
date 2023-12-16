@@ -6,8 +6,7 @@ export const lettersAtom = atom(localStorage.getItem('selectedLetters') ?? ALL_L
 
 export const lettersAtomLocalStorage = atom(
   (get) => get(lettersAtom),
-  (get, set, newStr: string) => {
-    console.log({newStr})
+  (_, set, newStr: string) => {
     set(lettersAtom, newStr)
     localStorage.setItem('selectedLetters', newStr)
   },

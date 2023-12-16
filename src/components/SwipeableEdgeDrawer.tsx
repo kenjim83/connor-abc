@@ -31,13 +31,10 @@ const Puller = styled(Box)(({ theme }) => ({
   left: 'calc(50% - 15px)',
 }));
 
-export default function SwipeableEdgeDrawer(props: Props) {
-  const { window } = props;
+
+export default function SwipeableEdgeDrawer() {
   const [selectedLetters] = useAtom(lettersAtomLocalStorage);
   const [isDrawerOpen, setIsDrawerOpen] = useAtom(isDrawerOpenAtom);
-
-  // This is used only for the example
-  const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Root>
@@ -52,7 +49,7 @@ export default function SwipeableEdgeDrawer(props: Props) {
       />
 
       <SwipeableDrawer
-        container={container}
+        // container={container}
         anchor="bottom"
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
